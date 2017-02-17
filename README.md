@@ -1,15 +1,13 @@
 # KS_LI-for-Raspberry-Pi
 
-## Устанока и запуск скрипта
+## Устанока пакетов (из  [статьи](http://raspberrypi.ru/blog/readblog/578.html))
 
 1. Скачиваем исходники библиотеки из репозитория `git clone git://git.drogon.net/wiringPi`
 
-2. Run `npm install` to install node modules.
+2. Заходим в дирректорию 'cd wiringPi' м выполняем './build'.
 
-## Run project
+## Компиляция и запуск
 
-1. Run `npm run build` to build project.
+1. Для компиляции скрипта выполняем 'gcc -Wall -o KsLiRunner KsLiRunner.c -lwiringPi'
 
-2. Run webpack dev server with examples: `npm start`
-
-3. Visit [localhost:3000](http://localhost:3000) to see examples
+2. И запускаем командой `sudo ./example`
