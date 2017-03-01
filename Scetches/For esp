@@ -1,0 +1,58 @@
+#include <Arduino.h> 
+#include <ESP8266WiFi.h> 
+#include <ESP8266HTTPClient.h> 
+#include <ESP8266WebServer.h> 
+#include <DNSServer.h> 
+#include <FirebaseArduino.h> 
+ 
+#define FIREBASE_HOST "smarthomeksli.firebaseio.com" 
+#define FIREBASE_AUTH "ubKwffbx7sQYIH2kLxlqASXqsasJwB8CfgZVgmBg" 
+#define WIFI_SSID "KS_on_V" 
+#define WIFI_PASSWORD "348169348169" 
+#define FIRE_PORT 0 
+
+bool device5 = false;
+
+void setup() { 
+  Serial.begin(28800); 
+
+  pinMode(FIRE_PORT, OUTPUT); 
+
+  // connect to wifi. 
+  WiFi.begin(WIFI_SSID, WIFI_PASSWORD); 
+  Serial.print("connecting"); 
+  while (WiFi.status() != WL_CONNECTED) { 
+    Serial.print("."); 
+    delay(500); 
+  } 
+  Serial.println(); 
+  Serial.print("connected: "); 
+  Serial.println(WiFi.localIP()); 
+
+  Firebase.begin(FIREBASE_HOST, FIREBASE_AUTH); 
+} 
+
+void loop() { 
+  FirebaseObject object = Firebase.get("fdgs45634vku45v6"); 
+
+  device5 = object.getBool("device5"); 
+
+  if (device5) { 
+    digitalWrite(FIRE_PORT, HIGH); 
+  } else { 
+    digitalWrite(FIRE_PORT, LOW); 
+  } 
+
+  // if disconnected
+  if (WiFi.status() != WL_CONNECTED) { 
+    digitalWrite(FIRE_PORT, HIGH); 
+    WiFi.begin(WIFI_SSID, WIFI_PASSWORD); 
+  } 
+
+  while (WiFi.status() != WL_CONNECTED) { 
+    Serial.print("."); 
+    delay(500); 
+  } 
+
+  delay(1000); 
+}

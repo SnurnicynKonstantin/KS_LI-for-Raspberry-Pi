@@ -1,0 +1,15 @@
+fdgs45634vku45v6
+ description: "Квартира Снурницына Константина"
+ device1: true
+ device1Description: "Общий свет"
+ device2: false
+ device2Description: "Розетка у стола"
+ device3: false
+ device3Description: "Подсветка шкафа"
+ device4: false
+ device4Description: "Шторы №1"
+ device5: false
+ device5Description: "Шторы №2"
+ device6: "#334455"
+ device6Description: "RGB лента"
+
