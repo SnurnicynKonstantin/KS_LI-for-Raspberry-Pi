@@ -1,0 +1,51 @@
+#define INPUT_1_PORT 2
+#define INPUT_2_PORT 5
+#define L293D_POWER_PORT 9
+#define SIGNAL_FROM_ESP_PORT 12
+#define FIRE_PORT 13
+
+bool isOn = true;
+
+void setup() {               
+  pinMode(FIRE_PORT, OUTPUT); //Диод
+  pinMode(SIGNAL_FROM_ESP_PORT, INPUT); //Сигнал с ESP 
+  pinMode(L293D_POWER_PORT, OUTPUT); //Включение, выключение L293D
+  pinMode(INPUT_1_PORT, OUTPUT); //Входы, управляющие двигателем
+  pinMode(INPUT_2_PORT, OUTPUT); //Входы, управляющие двигателем
+}
+ 
+void loop() {
+  //isOn = digitalRead(SIGNAL_FROM_ESP_PORT);
+
+  if (isOn) {
+    isOn = false;
+  }
+  else {
+    isOn = true;
+  }
+
+  digitalWrite(L293D_POWER_PORT, HIGH);// Переключать
+
+  if (isOn) { 
+    twistForward();
+  }
+  else {
+    twistBack();
+  }          
+
+  delay(2000); 
+}
+
+void twistForward() {
+    digitalWrite(INPUT_1_PORT, HIGH);
+    digitalWrite(INPUT_2_PORT, LOW);
+
+    digitalWrite(FIRE_PORT, HIGH);
+}
+
+void twistBack() {
+    digitalWrite(INPUT_2_PORT, HIGH);
+    digitalWrite(INPUT_1_PORT, LOW);
+
+    digitalWrite(FIRE_PORT, LOW); 
+}
